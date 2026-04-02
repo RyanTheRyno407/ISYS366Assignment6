@@ -1,0 +1,42 @@
+﻿@page 
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<link rel="stylesheet" type="text/css" href="/css/Thumbnail.css" />
+<div class="row">
+@for(int i = 0; i < Model.Movie.Count; i++)
+{
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-1 fw-bold">
+                            @Model.Movie[i].Rank
+                    </div><!--end of rank-->
+                    <div class="col-4 text-end fw-bold">
+                            @Model.Movie[i].Title
+                    </div><!--end of title-->
+                    <div class="col-4 text-end fw-bold">
+                        @Model.Movie[1].Price
+                    </div> 
+                </div> 
+            </div><!-- end of the header-->
+
+            <div class="card-body">
+                    <img src="@Model.Movie[i].Image" class="card-img my-thumbnail-class" alt="@Model.Movie[i].Title">
+            </div> <!--end of image-->
+            <div class="card-body">
+                    <p>@Model.Movie[i].ReleaseDate.ToString("yyyy-MM-dd")</p>
+                    <p>@Model.Movie[i].Genre</p>
+            </div><!--end of date and genre-->
+
+            <div class="card-body col-4">
+                <a asp-page="Details" asp-route-id="@Model.Movie[i].Id" class="btn btn-primary w-100"> Details </a>
+            </div>
+        </div>
+        
+    </div>
+}
+</div>
