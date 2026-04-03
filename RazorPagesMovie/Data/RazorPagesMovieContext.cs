@@ -10,8 +10,7 @@ namespace RazorPagesMovie.Data
 {
     public class RazorPagesMovieContext : IdentityDbContext
     {
-        public RazorPagesMovieContext(DbContextOptions<RazorPagesMovieContext> options)
-           : base(options)
+        public RazorPagesMovieContext(DbContextOptions<RazorPagesMovieContext> options) : base(options)
         {
         }
 
