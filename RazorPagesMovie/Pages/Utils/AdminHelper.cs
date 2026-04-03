@@ -6,7 +6,7 @@ static public class AdminHelper
 {
     public static readonly string ADMIN_ROLE = "Admin";
 
-    public static readonly string ADMIN_EMAIL = "admin@mostuff.com";
+    public static readonly string ADMIN_EMAIL = "Admin@ThePopcornBucket";
 
     public static async Task SeedAdminAsync(IServiceProvider serviceProvider)
     {
@@ -29,7 +29,7 @@ static public class AdminHelper
         // at least one non alphanumerc character
         // at least one digit ('0'-'9')
         // at least one uppercase ('A'-'Z')
-        string password = "Password123!";
+        string password = "Admin@321";
 
         // see if we have already created the user
         // if not create them and give them the admin role

@@ -7,31 +7,24 @@ using UI.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddDbContext<RazorPagesMovieContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("RazorPagesMovieContext") ?? throw new InvalidOperationException("Connection string 'RazorPagesMovieContext' not found.")));
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>().AddEntityFrameworkStores<RazorPagesMovieContext>();
-
 builder.Services.AddAuthorization(options =>
 {
-    // in our authorization options we add a policy
-    // that requires the user to have the admin role
     options.AddPolicy("AdminPolicy", policy =>
     {
         policy.RequireRole("Admin");
     });
 });
-
 builder.Services.AddRazorPages(options =>
 {
-    // secure anything in the Pages/Items folder 
-    // by assigning it the admin policy
-    // which we created above 
-    // saying it requires a user to have the admin role
-    options.Conventions.AuthorizeFolder("/Items", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/Movies", "AdminPolicy");
 });
+builder.Services.AddDbContext<RazorPagesMovieContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("RazorPagesMovieContext") ?? throw new InvalidOperationException("Connection string 'RazorPagesMovieContext' not found.")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+    options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<RazorPagesMovieContext>();
 
 var app = builder.Build();
 
@@ -54,6 +47,8 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+// Ensure authentication runs before authorization so Identity can populate HttpContext.User
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
