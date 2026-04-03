@@ -14,6 +14,25 @@ builder.Services.AddDbContext<RazorPagesMovieContext>(options =>
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>().AddEntityFrameworkStores<RazorPagesMovieContext>();
 
+builder.Services.AddAuthorization(options =>
+{
+    // in our authorization options we add a policy
+    // that requires the user to have the admin role
+    options.AddPolicy("AdminPolicy", policy =>
+    {
+        policy.RequireRole("Admin");
+    });
+});
+
+builder.Services.AddRazorPages(options =>
+{
+    // secure anything in the Pages/Items folder 
+    // by assigning it the admin policy
+    // which we created above 
+    // saying it requires a user to have the admin role
+    options.Conventions.AuthorizeFolder("/Items", "AdminPolicy");
+});
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
