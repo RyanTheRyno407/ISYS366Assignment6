@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using UI.Utilities
+@using Pages.Utils
 @inject SignInManager<IdentityUser> signInManager
 
 <!DOCTYPE html>
@@ -32,11 +32,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                       <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Movies/Index">Movies</a>
+                        </li>
+                        
                        
-                        @if (signInManager.IsSignedIn(User) && User.IsInRole(AdminHelper.ADMIN_ROLE))
+                        @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Movies/Index">Movies</a>
+                                <a class="nav-link text-light" asp-area="" asp-page="/Movies/Index">Movies</a>
                             </li>
                         }
 
