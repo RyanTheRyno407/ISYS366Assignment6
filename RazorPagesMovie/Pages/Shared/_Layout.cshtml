@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Pages.Utils
+@using UI.Utilities
 @inject SignInManager<IdentityUser> signInManager
 
 <!DOCTYPE html>
@@ -32,17 +33,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
-                       <li class="nav-item">
+                       @* <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Movies/Index">Movies</a>
-                        </li>
+                        </li> *@
                         
                        
-                        @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        @if (signInManager.IsSignedIn(User))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-page="/Movies/Index">Movies</a>
-                            </li>
+                                if (User.IsInRole(AdminHelper.ADMIN_ROLE))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Movies/Index">Movies</a>
+                                    </li>
+                                }
                         }
+
+                        @*
+                            make a new user 
+                        *@
 
                     </ul>
                     <partial name="_LoginPartial"/>

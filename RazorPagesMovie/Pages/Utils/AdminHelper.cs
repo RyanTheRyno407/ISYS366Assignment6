@@ -6,7 +6,7 @@ static public class AdminHelper
 {
     public static readonly string ADMIN_ROLE = "Admin";
 
-    public static readonly string ADMIN_EMAIL = "Admin@ThePopcornBucket";
+    public static readonly string ADMIN_EMAIL = "Admin1@ThePopcornBucket";
 
     public static async Task SeedAdminAsync(IServiceProvider serviceProvider)
     {
